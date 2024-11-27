@@ -1004,3 +1004,12 @@ export function bit_array_starts_with(bits, prefix) {
 
   return true;
 }
+
+export function log(x) {
+  // It is checked in Gleam that:
+  // - The input is strictly positive (x > 0)
+  // - This ensures that Math.log will never return NaN or -Infinity
+  // The function can thus safely pass the input to Math.log
+  // and a valid finite float will always be produced.
+  return Math.log(x);
+}

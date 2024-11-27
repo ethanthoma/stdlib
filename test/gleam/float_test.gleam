@@ -528,3 +528,40 @@ pub fn subtract_test() {
   |> float.subtract(2.0, _)
   |> should.equal(-1.0)
 }
+
+pub fn log_test() {
+  // Basic positive cases
+  float.log(1.0)
+  |> should.equal(Ok(0.0))
+
+  float.log(2.718281828459045)  // e
+  |> should.equal(Ok(1.0))
+
+  float.log(10.0)
+  |> should.equal(Ok(2.302585092994046))
+
+  float.log(100.0)
+  |> should.equal(Ok(4.605170185988092))
+
+  // Very small positive numbers are valid
+  float.log(0.5)
+  |> should.equal(Ok(-0.6931471805599453))
+
+  float.log(0.1)
+  |> should.equal(Ok(-2.3025850929940455))
+
+  // Zero returns an error as log(0) = -∞
+  float.log(0.0)
+  |> should.equal(Error(Nil))
+
+  // Negative numbers return an error as they would result in complex numbers
+  float.log(-1.0)
+  |> should.equal(Error(Nil))
+
+  float.log(-100.0)
+  |> should.equal(Error(Nil))
+
+  // Very close to zero, but still negative
+  float.log(-0.1)
+  |> should.equal(Error(Nil))
+}
